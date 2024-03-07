@@ -22,7 +22,7 @@ def SeConnecter():
 fenetre = tkinter.Tk()
 fenetre.title("FENETRE DE CONNEXION")
 fenetre.resizable(False,False)
-fenetre.geometry("300x200")
+fenetre.geometry("300x200+450+200")
 fenetre.configure(bg="#091821")
 
 #Formulaire
