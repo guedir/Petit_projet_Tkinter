@@ -1,5 +1,6 @@
 import tkinter
 from tkinter import ttk
+import sqlite3
 
 #FENETRE PRINCIPALE
 page = tkinter.Tk()
@@ -90,5 +91,26 @@ table.column(4, width=30)
 table.column(5, width=30)
 table.column(6, width=100)
 table.column(7, width=30)
+
+#
+con = sqlite3.Connection("mydb.db")
+request = "CREATE TABLE IF NOT EXISTS 'Note' ('code' Integer, 'nom' text , 'prenom' text , 'sexe' text, 'classe' text , 'matiere' text, 'notes' Double);)"
+cur = con.cursor()
+cur.execute(request)
+
+#parcourir la table Note
+request = "SELECT * FROM Note"
+cur.execute(request)
+
+#Récupérer toutes les lignes résultantes de la requete SELECT
+rows = cur.fetchall()
+
+#Insérer chaque ligne dans la table 
+for row in rows:
+    table.insert("" , "end" , values=row)
+    
+cur.close()
+con.close()
+
 
 page.mainloop()
