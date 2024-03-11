@@ -1,6 +1,36 @@
 import tkinter
 from tkinter import ttk
 import sqlite3
+from tkinter import messagebox 
+from subprocess import call
+
+def ajouter():
+    mat = saisi_matricule.get()
+    Nom = saisi_nom.get()
+    Prenom = saisi_prenom.get()
+    Sexe = valeursexe.get()
+    Classe = option_selected.get()
+    Matiere = saisi_matiere.get()
+    note = saisi_note.get()
+
+    con = sqlite3.Connection("madb.db")
+    cur = con.cursor()
+
+    try:
+        request = "INSERT INTO Note (code, nom , prenom , sexe, classe , matiere, notes) VALUES (?, ?, ?, ?, ?, ?, ?)"
+        val = (mat, Nom, Prenom, Sexe , Classe , Matiere, note)
+        cur.execute(request, val)
+        con.commit()
+        messagebox.showinfo("information","note ajouter")
+        cur.close()
+        con.close()
+        page.destroy()
+        call(["python","Interface_de_gestion.py"])
+
+    except Exception as e:
+        print(e)
+        con.rollback()
+        con.close()
 
 #FENETRE PRINCIPALE
 page = tkinter.Tk()
@@ -64,7 +94,8 @@ lbl_note.place(x=70 , y=450)
 saisi_note.place(x=250 , y=450, width=120)
 
 #BOUTTONS
-btn_enregistrer = tkinter.Button(page , text="Eregistrer" , bg="#FF4500" , fg="#FFFFFF", font=("Arial",10,"bold"), bd=4)
+btn_enregistrer = tkinter.Button(page , text="Eregistrer" , bg="#FF4500" , fg="#FFFFFF", font=("Arial",10,"bold"), bd=4
+                                 , command=ajouter)
 btn_modifier = tkinter.Button(page , text="Modifier", bg="#FF4500" , fg="#FFFFFF", font=("Arial",10,"bold"), bd=4)
 btn_supprimer = tkinter.Button(page , text="Supprimer", bg="#FF4500" , fg="#FFFFFF", font=("Arial",10,"bold"), bd=4)
 btn_enregistrer.place(x=250 , y=500, width=120)
@@ -93,8 +124,8 @@ table.column(6, width=100)
 table.column(7, width=30)
 
 #
-con = sqlite3.Connection("mydb.db")
-request = "CREATE TABLE IF NOT EXISTS 'Note' ('code' Integer, 'nom' text , 'prenom' text , 'sexe' text, 'classe' text , 'matiere' text, 'notes' Double);)"
+con = sqlite3.Connection("madb.db")
+request = "CREATE TABLE IF NOT EXISTS 'Note' ('code' Integer, 'nom' text , 'prenom' text , 'sexe' text, 'classe' text , 'matiere' text, 'notes' Double);"
 cur = con.cursor()
 cur.execute(request)
 
