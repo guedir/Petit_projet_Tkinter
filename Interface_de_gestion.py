@@ -32,6 +32,56 @@ def ajouter():
         con.rollback()
         con.close()
 
+def modifier():
+     mat = saisi_matricule.get()
+     Nom = saisi_nom.get()
+     Prenom = saisi_prenom.get()
+     Sexe = valeursexe.get()
+     Classe = option_selected.get()
+     Matiere = saisi_matiere.get()
+     note = saisi_note.get()
+
+     con = sqlite3.Connection("madb.db")
+     cur = con.cursor()
+
+     try:
+         request = "UPDATE Note SET nom=? , prenom=? , sexe=?, classe=? , matiere=?, notes=? WHERE code=?"
+         val = (Nom, Prenom, Sexe, Classe , Matiere, note, mat)
+         cur.execute(request,val)
+         con.commit()
+         messagebox.showinfo("Information","Note Modifier")
+         cur.close()
+         con.close()
+         page.destroy()
+         call(["python","Interface_de_gestion"])
+
+     except Exception as e:
+         print(e)
+         con.rollback()
+         con.close()
+
+def supprimer():
+     mat = saisi_matricule.get()
+
+     con = sqlite3.Connection("madb.db")
+     cur = con.cursor()
+
+     try:
+         request = "DELETE FROM Note WHERE code=?"
+         val = (mat)
+         cur.execute(request,val)
+         con.commit()
+         messagebox.showinfo("information","Note Supprimer")
+         cur.close()
+         con.close()
+         page.destroy()
+         call(["python","Interface_de_gestion.py"])
+    
+     except Exception as e:
+         print(e)
+         con.rollback()
+         con.close()
+
 #FENETRE PRINCIPALE
 page = tkinter.Tk()
 page.title("MENU PRINCIPALE")
@@ -96,7 +146,8 @@ saisi_note.place(x=250 , y=450, width=120)
 #BOUTTONS
 btn_enregistrer = tkinter.Button(page , text="Eregistrer" , bg="#FF4500" , fg="#FFFFFF", font=("Arial",10,"bold"), bd=4
                                  , command=ajouter)
-btn_modifier = tkinter.Button(page , text="Modifier", bg="#FF4500" , fg="#FFFFFF", font=("Arial",10,"bold"), bd=4)
+btn_modifier = tkinter.Button(page , text="Modifier", bg="#FF4500" , fg="#FFFFFF", font=("Arial",10,"bold"), bd=4,
+                                  command=modifier)
 btn_supprimer = tkinter.Button(page , text="Supprimer", bg="#FF4500" , fg="#FFFFFF", font=("Arial",10,"bold"), bd=4)
 btn_enregistrer.place(x=250 , y=500, width=120)
 btn_modifier.place(x=250 , y=550, width=120)
