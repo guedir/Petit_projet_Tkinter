@@ -1,5 +1,6 @@
 import tkinter
 from tkinter import messagebox
+from subprocess import call
 
 def SeConnecter():
     champ1 = zone_saisi1.get()
@@ -8,11 +9,12 @@ def SeConnecter():
         messagebox.showerror("Erreur","veuillez remplire les champs")
         zone_saisi1.delete("0","end")
         zone_saisi2.delete("0","end")
-    elif champ1 == "admin" and champ2 == "0000":
+    elif (champ1 == "admin") and (champ2 == "admin"):
         messagebox.showinfo("connecté","bienvenue")
         zone_saisi1.delete("0","end")
         zone_saisi2.delete("0","end")
         fenetre.destroy()
+        call(["python","Interface_de_gestion.py"])
     else:
         messagebox.showwarning("Attention" , "Nom utilisateur ou Mot de passe incorrecte")
         zone_saisi1.delete("0","end")
