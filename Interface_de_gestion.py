@@ -148,7 +148,8 @@ btn_enregistrer = tkinter.Button(page , text="Eregistrer" , bg="#FF4500" , fg="#
                                  , command=ajouter)
 btn_modifier = tkinter.Button(page , text="Modifier", bg="#FF4500" , fg="#FFFFFF", font=("Arial",10,"bold"), bd=4,
                                   command=modifier)
-btn_supprimer = tkinter.Button(page , text="Supprimer", bg="#FF4500" , fg="#FFFFFF", font=("Arial",10,"bold"), bd=4)
+btn_supprimer = tkinter.Button(page , text="Supprimer", bg="#FF4500" , fg="#FFFFFF", font=("Arial",10,"bold"), bd=4,
+                                    command=supprimer)
 btn_enregistrer.place(x=250 , y=500, width=120)
 btn_modifier.place(x=250 , y=550, width=120)
 btn_supprimer.place(x=250 , y=600, width=120)
