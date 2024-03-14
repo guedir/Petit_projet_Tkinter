@@ -195,5 +195,6 @@ for row in rows:
 cur.close()
 con.close()
 
+print(rows)
 
 page.mainloop()
